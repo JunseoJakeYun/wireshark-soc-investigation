@@ -52,31 +52,6 @@ Packet volume alone does not confirm malicious activity. However, it provided a 
 
 I therefore investigated the three highest-priority destinations further by reviewing their protocols, ports, communication patterns, and TLS information.
 
-### Wireshark Filter
-
-```text
-ip.addr == 10.1.17.215 && ip.dst != 10.1.17.0/24
-```
-
-### Evidence
-
-![External connections from affected endpoint](../evidence/06-external-connections.png)
-
-### Observation
-
-The endpoint communicated with a large number of external IP addresses.
-
-I reviewed the connections based on traffic volume, duration, communication frequency, destination ports, and protocol.
-
-Several external destinations required further investigation.
-
-Three IP addresses were later identified as C2 infrastructure:
-
-```text
-5.252.153.241
-45.125.66.32
-45.125.66.252
-```
 
 ---
 
@@ -98,13 +73,9 @@ Approximately 9,000 packets and 7 MB of traffic were observed during the communi
 ip.addr == 10.1.17.215 && ip.addr == 5.252.153.241
 ```
 
-### Evidence
-
-![Traffic between affected host and 5.252.153.241](../evidence/07-c2-5252153241.png)
-
 ### Observation
 
-The endpoint maintained repeated communication with `5.252.153.241`.
+The endpoint maintained repeated communication with `5.252.153.241` every 5 seconds.
 
 The traffic contained HTTP requests.
 
@@ -118,7 +89,7 @@ ip.addr == 10.1.17.215 && ip.addr == 5.252.153.241 && http.request
 
 ### Evidence
 
-![HTTP requests to 5.252.153.241](../evidence/08-c2-http-5252153241.png)
+![Traffic between affected host and 5.252.153.241](../evidence/05-c2-beaconing.png)
 
 The traffic contained requests such as:
 
@@ -183,10 +154,6 @@ Port `2917` is not a typical HTTPS port.
 ip.addr == 10.1.17.215 && ip.addr == 45.125.66.32
 ```
 
-### Evidence
-
-![Traffic between affected host and 45.125.66.32](../evidence/09-c2-451256632.png)
-
 ### Observation
 
 The endpoint established an encrypted TLS connection with `45.125.66.32` over TCP port `2917`.
@@ -203,7 +170,7 @@ ip.addr == 10.1.17.215 && ip.addr == 45.125.66.32 && tls
 
 ### Evidence
 
-![TLS certificate from 45.125.66.32](../evidence/10-c2-451256632-tls.png)
+![TLS certificate from 45.125.66.32](../evidence/06-c2-tls-2917.png)
 
 The certificate identified the server as:
 
@@ -252,10 +219,6 @@ Approximately 1,300 packets were observed between the affected endpoint and this
 ip.addr == 10.1.17.215 && ip.addr == 45.125.66.252
 ```
 
-### Evidence
-
-![Traffic between affected host and 45.125.66.252](../evidence/11-c2-4512566252.png)
-
 ### Observation
 
 The endpoint communicated with `45.125.66.252` over TCP/443.
@@ -272,7 +235,7 @@ ip.addr == 10.1.17.215 && ip.addr == 45.125.66.252 && tls
 
 ### Evidence
 
-![TLS certificate from 45.125.66.252](../evidence/12-c2-4512566252-tls.png)
+![TLS certificate from 45.125.66.252](../evidence/07-c2-tls-443.png)
 
 The server presented a self-signed certificate.
 
