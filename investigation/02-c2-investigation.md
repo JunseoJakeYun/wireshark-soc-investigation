@@ -170,7 +170,7 @@ ip.addr == 10.1.17.215 && ip.addr == 45.125.66.32 && tls
 
 ### Evidence
 
-![TLS certificate from 45.125.66.32](../evidence/06-c2-tls-2917.png)
+![TLS certificate from 45.125.66.32](../evidence/06-c2-tls-2917.png.png)
 
 The certificate identified the server as:
 
