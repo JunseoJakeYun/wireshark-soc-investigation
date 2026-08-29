@@ -2,7 +2,7 @@
 
 ## Overview
 
-A hands-on SOC investigation using Wireshark and a provided malware-traffic PCAP \
+A hands-on SOC investigation exercise using Wireshark and a provided malware-traffic PCAP \
 https://www.malware-traffic-analysis.net/2025/01/22/index.html.
 
 The investigation focuses on identifying a potentially compromised Windows endpoint, analysing suspicious network activity, and identifying command-and-control (C2) infrastructure.
@@ -20,7 +20,7 @@ The investigation focuses on identifying a potentially compromised Windows endpo
 ## Tools
 
 - Wireshark
-- Provided PCAP.
+- Provided PCAP
 
 ## Investigation Status
 
